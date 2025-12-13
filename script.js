@@ -13,11 +13,12 @@ function padToTwoDigits(number) {
   }
   return number.toString();
 }
-
+// Add S for Series and E for epsodes in fornt of the indentifications movies 
 function makeEpisodeCode(season, episodeNumber) {
   return "S" + padToTwoDigits(season) + "E" + padToTwoDigits(episodeNumber);
 }
 
+//
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
   // rootElem.textContent = `Got ${episodeList.length} episode(s)`;
@@ -28,6 +29,7 @@ function makePageForEpisodes(episodeList) {
     'Data from <a href="https://www.tvmaze.com/" target="_blank" rel="noopener noreferrer">TVMaze.com</a>';
   rootElem.appendChild(credit);
 
+  // iterating text on the movie cards
   for (let i = 0; i < episodeList.length; i++) {
     const episode = episodeList[i];
     const card = document.createElement("section");
@@ -47,6 +49,7 @@ function makePageForEpisodes(episodeList) {
       card.appendChild(image);
     }
 
+    // Creating summaryBoxs
     const summaryBox = document.createElement("div");
     // Some summaries are already HTML text from TVMaze
     if (episode.summary) {
