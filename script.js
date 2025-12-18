@@ -2,8 +2,31 @@
 
 // This runs when the page is ready
 function setup() {
-  const allEpisodes = getAllEpisodes();
-  makePageForEpisodes(allEpisodes);
+  const rootElem = document.getElementById("root");
+  showLoadingMessage(rootElem);
+
+  // Fetch data only once when the page loads
+  fetch("https://api.tvmaze.com/shows/82/episodes")
+    .then(function (response) {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then(function (allEpisodes) {
+      makePageForEpisodes(allEpisodes);
+    })
+    .catch(function () {
+      showErrorMessage(rootElem);
+    });
+}
+
+function showLoadingMessage(rootElem) {
+  rootElem.textContent = "Loading episodes...";
+}
+
+function showErrorMessage(rootElem) {
+  rootElem.textContent = "Failed to load episodes. Please try again later.";
 }
 
 // Adds a zero to numbers under 10, example: 3 -> "03"
